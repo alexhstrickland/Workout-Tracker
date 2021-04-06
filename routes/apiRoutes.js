@@ -2,12 +2,28 @@ const express = require('express')
 const router = express.Router();
 const db = require('../models');
 
-router.get();
+router.get('/api/workouts', (req, res) => {
+    db.Workout.find().then(function(results){
+        res.json(results);
+    })
+});
 
-router.post();
+router.post('/api/workouts', (req, res) => {
+    db.Workout.find().then(function(results){
+        res.json(results);
+    })
+});
 
-router.put();
+router.put('/api/workouts', (req, res) => {
+    db.Workout.find().then(function(results){
+        res.json(results);
+    })
+});
 
-router.get();
+router.get('/api/workouts', (req, res) => {
+    db.Workout.find().then(function(results){
+        res.json(results);
+    })
+});
 
 module.exports = router;
