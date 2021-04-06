@@ -9,3 +9,5 @@ router.post();
 router.put();
 
 router.get();
+
+module.exports = router;
