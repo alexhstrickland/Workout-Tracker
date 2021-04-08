@@ -11,8 +11,8 @@ app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
-app.use(require('./routes/htmlRoutes'));
-app.use(require('./routes/apiRoutes'));
+require('./public/routes/htmlRoutes')(app);
+require('./public/routes/apiRoutes')(app);
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/workout', {
     useNewUrlParser: true,
