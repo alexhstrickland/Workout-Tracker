@@ -23,6 +23,9 @@
   ## Usage
   To use, the user will need to enter their workouts through the application and track these workouts in the dashboard. The dashboard can be accessed by clicking the link at the top of the page.
 
+  ![Workout-Tracker](public/assets/images/workout.png)
+  ![Workout-Tracker](public/assets/images/dashboard.png)
+
   ## License
   This project is covered under the ISC license. Visit the following link for more information on this license: [ISC](https://opensource.org/licenses/ISC)
 
