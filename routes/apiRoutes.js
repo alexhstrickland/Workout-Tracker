@@ -1,17 +1,12 @@
 const express = require('express')
 const router = express.Router();
-const mongojs = require('mongojs');
+// const mongojs = require('mongojs');
 const db = require('../models');
 
 
-    router.get('/api/workouts', (req, res) => {
-        db.Workout.find({}, (error, data) => {
-            if (error) {
-                res.send(error);
-            } else {
-                res.json(data);
-            }
-        });
+    router.get('/api/workouts', async (req, res) => {
+        const data = await db.Workout.find();
+            res.json(data);
     });
 
     router.get('/api/workout/:id', (req, res) => {
@@ -29,36 +24,22 @@ const db = require('../models');
         )
     });
 
-    router.post('/api/workouts', (req, res) => {
-        db.Workout.create({}, (error, data) => {
-            if (error) {
-                res.send(error)
-            } else {
-                res.json(data)
-            }
-        });
+    router.post('/api/workouts', async (req, res) => {
+        const data = await db.Workout.create(req.body);
+        res.json(data);
     });
 
-    router.put('/api/workouts/:id', (req, res) => {
-        db.Workout.findByIdAndUpdate(
-            req.params.id,
-            { $push: { exercises: req.body } },
-            {new: true, runValidators: true }
-        ).then(data => res.json(data))
-            .catch(err => {
-                res.json(err)
-                console.log(res.json);
-        })
+    router.put('/api/workouts/:id', async (req, res) => {
+       const data = await db.Workout.updateOne(
+           { _id: req.params.id },
+           { $push: {exercises: req.body } }
+       );
+       res.json(data);
     });
 
-    router.get('/api/workouts/range', (req, res) => {
-        db.Workout.find({}, (error, data) => {
-            if (error) {
-                res.send(error);
-            } else {
-                res.json(data);
-            }
-        });
+    router.get('/api/workouts/range',  async (req, res) => {
+        const data = await db.Workout.find();
+        res.json(data);
     });
 
 module.exports = router;
