@@ -1,11 +1,10 @@
 const express = require('express')
-// const router = express.Router();
+const router = express.Router();
 const mongojs = require('mongojs');
 const db = require('../models');
 
-module.exports = function(app) {
 
-    app.get('/api/workouts', (req, res) => {
+    router.get('/api/workouts', (req, res) => {
         db.Workout.find({}, (error, data) => {
             if (error) {
                 res.send(error);
@@ -15,7 +14,7 @@ module.exports = function(app) {
         });
     });
 
-    app.get('/api/workout/:id', (req, res) => {
+    router.get('/api/workout/:id', (req, res) => {
         db.Workout.findOne(
             {
                 _id: mongojs.ObjectID(req.params.id)
@@ -30,7 +29,7 @@ module.exports = function(app) {
         )
     });
 
-    app.post('/api/workouts', (req, res) => {
+    router.post('/api/workouts', (req, res) => {
         db.Workout.create({}, (error, data) => {
             if (error) {
                 res.send(error)
@@ -40,7 +39,7 @@ module.exports = function(app) {
         });
     });
 
-    app.put('/api/workouts/:id', (req, res) => {
+    router.put('/api/workouts/:id', (req, res) => {
         db.Workout.findByIdAndUpdate(
             req.params.id,
             { $push: { exercises: req.body } },
@@ -52,7 +51,7 @@ module.exports = function(app) {
         })
     });
 
-    app.get('/api/workouts/range', (req, res) => {
+    router.get('/api/workouts/range', (req, res) => {
         db.Workout.find({}, (error, data) => {
             if (error) {
                 res.send(error);
@@ -62,4 +61,4 @@ module.exports = function(app) {
         });
     });
 
-};
+module.exports = router;
