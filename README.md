@@ -26,6 +26,8 @@
   ![Workout-Tracker](public/assets/images/workout.png)
   ![Workout-Tracker](public/assets/images/dashboard.png)
 
+  [Deployed Application](https://workout--fitness--tracker.herokuapp.com/)
+
   ## License
   This project is covered under the ISC license. Visit the following link for more information on this license: [ISC](https://opensource.org/licenses/ISC)
 
