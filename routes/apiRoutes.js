@@ -4,42 +4,62 @@ const router = express.Router();
 const db = require('../models');
 
 
-    router.get('/api/workouts', async (req, res) => {
-        const data = await db.Workout.find();
-            res.json(data);
-    });
-
-    router.get('/api/workout/:id', (req, res) => {
-        db.Workout.findOne(
-            {
-                _id: mongojs.ObjectID(req.params.id)
-            },
-            (err, data) => {
-                if (err) {
-                    res.send(err)
-                } else {
-                    res.send(data)
-                }
-            }
-        )
-    });
-
-    router.post('/api/workouts', async (req, res) => {
-        const data = await db.Workout.create(req.body);
+router.get("/api/workouts", (req, res) => {
+    db.Workout.find({}, (error, data) => {
+        if (error) {
+        res.send(error);
+        } else {
         res.json(data);
+        }
     });
+});
 
-    router.put('/api/workouts/:id', async (req, res) => {
-       const data = await db.Workout.updateOne(
-           { _id: req.params.id },
-           { $push: {exercises: req.body } }
-       );
-       res.json(data);
-    });
-
-    router.get('/api/workouts/range',  async (req, res) => {
-        const data = await db.Workout.find();
+router.get("/api/workouts/range", (req, res) => {
+    db.Workout.find({}, (error, data) => {
+        if (error) {
+        res.send(error);
+        } else {
         res.json(data);
+        }
     });
+});
 
+router.get("/api/workout/:id", (req, res) => {
+    db.Workout.findOne(
+        {
+        _id: mongojs.ObjectId(req.params.id)
+        },
+        (error, data) => {
+        if (error) {
+            res.send(error);
+        } else {
+            res.send(data);
+        }
+        }
+    );
+});
+
+router.post("/api/workouts", (req, res) => {
+    const work1 = db.Workout.create({}, (error,data) => {
+        if (error) {
+            res.send(error)
+        } else {
+            res.json(data)
+        }
+    });
+    console.log(work1);
+});
+
+router.put("/api/workouts/:id", (req, res) => {
+    console.log('id',req.params.id)
+    db.Workout.findByIdAndUpdate(  
+        req.params.id,
+        {$push:{exercises: req.body} },
+        {new: true,runValidators:true }
+       )
+       .then(data => res.json(data))
+       .catch(err => { 
+           res.json(err)
+       })
+});    
 module.exports = router;
