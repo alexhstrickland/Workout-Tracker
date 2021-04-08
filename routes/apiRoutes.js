@@ -13,8 +13,23 @@ router.get('/api/workouts', (req, res) => {
     });
 });
 
+router.get("/api/workout/:id", (req, res) => {
+    db.Workout.findOne(
+        {
+            _id: mongojs.ObjectID(req.params.id)
+        },
+        (err, data) => {
+            if (err) {
+                res.send(err)
+            } else {
+                res.send(data)
+            }
+        }
+    )
+});
+
 router.post('/api/workouts', (req, res) => {
-    const work = db.Workout.create({}, (error, data) => {
+    db.Workout.create({}, (error, data) => {
         if (error) {
             res.send(error)
         } else {
